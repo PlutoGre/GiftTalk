@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pluto.fragment.CategoryFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_fg_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff2d47">
+
+        <RadioGroup
+            android:id="@+id/rg_fg_category"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <RadioButton
+                android:id="@+id/rb_fg_strategy"
+                android:text="攻略"
+                android:background="@drawable/rg_bg_color_left"
+                style="@style/CategoryFragmentRadioButton" />
+            <RadioButton
+                android:id="@+id/rb_fg_gift"
+                android:text="礼物"
+                android:background="@drawable/rg_bg_color_right"
+                style="@style/CategoryFragmentRadioButton"/>
+        </RadioGroup>
+
+        <ImageButton
+            android:id="@+id/ib_fg_category_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_menu_search" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_fg_category"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_fg_category"/>
+
+</RelativeLayout>

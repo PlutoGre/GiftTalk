@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/tv_hand_pick_list_view_group_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/hand_pick_listview_group_line"
+        android:text="2016-03-16 Wen"
+        android:gravity="center"
+        android:drawablePadding="10dp"/>
+</LinearLayout>

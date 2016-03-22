@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingTop="40dp">
+
+    <LinearLayout
+        android:id="@+id/ll_category_gift_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#d7d7d7" />
+        <TextView
+            android:id="@+id/tv_category_gift_lv_detail_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个性配饰"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#d7d7d7" />
+
+    </LinearLayout>
+
+    <com.pluto.customview.MeasureGridView
+        android:id="@+id/gv_category_gift_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"/>
+
+</LinearLayout>

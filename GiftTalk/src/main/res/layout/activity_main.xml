@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pluto.gifttalk.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff2d47">
+
+        <ImageButton
+            android:id="@+id/ib_main_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_signin" />
+
+        <ImageView
+            android:id="@+id/iv_main_logo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_title" />
+        <TextView
+            android:id="@+id/tv_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="热门"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ib_main_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_menu_search" />
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/fl_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_main"
+        android:layout_above="@+id/tv_bottom_line"/>
+
+    <TextView
+        android:id="@+id/tv_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#e0e0e0"
+        android:layout_above="@+id/rg_main_bottom"/>
+
+    <RadioGroup
+        android:id="@+id/rg_main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_main_home"
+            style="@style/MainRadioButtonStyle"
+            android:drawableTop="@drawable/main_rg_rb_home"
+            android:text="指南" />
+
+        <RadioButton
+            android:id="@+id/rb_main_select"
+            style="@style/MainRadioButtonStyle"
+            android:drawableTop="@drawable/main_rg_rb_select"
+            android:text="热门" />
+
+        <RadioButton
+            android:id="@+id/rb_main_category"
+            style="@style/MainRadioButtonStyle"
+            android:drawableTop="@drawable/main_rg_rb_category"
+            android:text="分类" />
+
+        <RadioButton
+            android:id="@+id/rb_main_profile"
+            style="@style/MainRadioButtonStyle"
+            android:drawableTop="@drawable/main_rg_rb_profile"
+            android:text="我的" />
+    </RadioGroup>
+</RelativeLayout>

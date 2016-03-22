@@ -1,0 +1,158 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pluto.fragment.ProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_profile">
+
+        <ImageButton
+            android:id="@+id/ib_fg_profile_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/myLucency"
+            android:src="@drawable/icon_message" />
+
+        <ImageButton
+            android:id="@+id/ib_fg_profile_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            android:background="@color/myLucency"
+            android:src="@drawable/me_settings" />
+
+        <ImageButton
+            android:id="@+id/ib_fg_profile_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_toLeftOf="@id/ib_fg_profile_settings"
+            android:background="@color/myLucency"
+            android:src="@drawable/icon_scan" />
+
+        <ImageButton
+            android:id="@+id/ib_fg_profile_my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/myLucency"
+            android:src="@drawable/me_avatar_boy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ib_fg_profile_my"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="未登录"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <Button
+            android:id="@+id/btn_fg_profile_cart"
+            style="@style/FragmentProfileButton"
+            android:drawableTop="@drawable/icon_cart"
+            android:text="购物车" />
+
+        <Button
+            android:id="@+id/btn_fg_profile_order"
+            style="@style/FragmentProfileButton"
+            android:drawableTop="@drawable/icon_order"
+            android:text="订单" />
+
+        <Button
+            android:id="@+id/btn_fg_profile_coupon"
+            style="@style/FragmentProfileButton"
+            android:drawableTop="@drawable/icon_coupon"
+            android:text="礼券" />
+
+        <Button
+            android:id="@+id/btn_fg_profile_service"
+            style="@style/FragmentProfileButton"
+            android:drawableTop="@drawable/icon_service"
+            android:text="客服" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#ededed" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#b3b3b3" />
+
+    <RadioGroup
+        android:id="@+id/rg_fg_profile"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_fg_profile_gift"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="礼物"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="#b3b3b3" />
+
+        <RadioButton
+            android:id="@+id/rb_fg_profile_strategy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="攻略"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_fg_profile_gift_line"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:background="@color/actionBarColor" />
+
+        <TextView
+            android:id="@+id/tv_fg_profile_strategy_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/actionBarColor"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#b3b3b3" />
+
+</LinearLayout>

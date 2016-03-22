@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp">
+
+            <ImageView
+                android:id="@+id/iv_gv_item_card_view_icon"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/tv_gv_item_card_view_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清新珊瑚绒四件套"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_below="@id/iv_gv_item_card_view_icon"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/tv_gv_item_card_view_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="88.00"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="#ff2d47"/>
+            <ImageButton
+                android:id="@+id/ib_gv_item_card_view_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_small_heart_normal"
+                android:background="#00ffffff"
+                android:layout_alignTop="@id/tv_gv_item_card_view_price"
+                android:layout_alignBottom="@id/tv_gv_item_card_view_price"
+                android:layout_toLeftOf="@+id/tv_gv_item_card_view_like_count"/>
+            <TextView
+                android:id="@+id/tv_gv_item_card_view_like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3.1k"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_alignTop="@id/tv_gv_item_card_view_price"
+                android:layout_alignBottom="@id/tv_gv_item_card_view_price"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

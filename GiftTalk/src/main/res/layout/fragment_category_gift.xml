@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pluto.fragment.CategoryGiftFragment">
+
+    <Button
+        android:id="@+id/btn_category_gift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选礼神器"
+        android:background="#00ffffff"
+        android:textSize="12sp"
+        android:gravity="left|center_vertical"
+        android:drawableLeft="@drawable/gift_category_guide"
+        android:drawablePadding="10dp"
+        android:paddingLeft="15dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/arrow_right"
+        android:layout_margin="18dp"/>
+    <TextView
+        android:id="@+id/tv_category_gift_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#8c8c8c"
+        android:layout_below="@id/btn_category_gift"/>
+    <ListView
+        android:id="@+id/lv_category_gift_title"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_category_gift_line"
+        android:scrollbars="none"
+        android:divider="#ffffff"
+        android:background="#f2f2f2"/>
+    <ListView
+        android:id="@+id/lv_category_gift_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_category_gift_line"
+        android:layout_toRightOf="@id/lv_category_gift_title"
+        android:scrollbars="none"
+        android:divider="@color/white"/>
+
+</RelativeLayout>
