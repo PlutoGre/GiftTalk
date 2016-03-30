@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pluto.fragment.SearchStrategyFragment">
+
+    <ListView
+        android:id="@+id/lv_fg_search_strategy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#00ffffff"
+        android:background="#ededed"
+        android:scrollbars="none"/>
+
+</FrameLayout>

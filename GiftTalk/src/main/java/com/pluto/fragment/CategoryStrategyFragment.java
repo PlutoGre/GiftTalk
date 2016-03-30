@@ -104,10 +104,6 @@ public class CategoryStrategyFragment extends BaseFragment {
         //添加头部布局
         addHeadView();
 
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity() , LinearLayoutManager.VERTICAL ,false));
-//        strategyRecyclerViewAdapter = new CategoryStrategyRecyclerViewAdapter(getActivity() , headView , channelGroupsEntityList);
-//        mRecyclerView.setAdapter(strategyRecyclerViewAdapter);
-
         strategyListViewAdapter = new CategoryStrategyListViewAdapter(getActivity() , channelGroupsEntityList);
         mListView.setAdapter(strategyListViewAdapter);
 

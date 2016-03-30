@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pluto.gifttalk.SelectGiftGodActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/actionBarColor"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp">
+        <ImageButton
+            android:id="@+id/ib_select_gift_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_action_back"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:text="挑选礼物"/>
+        <ImageButton
+            android:id="@+id/ib_select_gift_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_menu_sort"
+            android:layout_gravity="right|center_vertical"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <Button
+            android:id="@+id/btn_select_gift_god_target"
+            android:text="对象"
+            style="@style/SelectGiftGodButton" />
+        <TextView
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="#c1c1c1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+        <Button
+            android:id="@+id/btn_select_gift_god_scene"
+            android:text="场合"
+            style="@style/SelectGiftGodButton" />
+        <TextView
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="#c1c1c1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/btn_select_gift_god_personality"
+            android:text="个性"
+            style="@style/SelectGiftGodButton" />
+        <TextView
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="#c1c1c1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/btn_select_gift_god_price"
+            android:text="价格"
+            style="@style/SelectGiftGodButton" />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gv_select_gift_god"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:padding="10dp"
+        android:verticalSpacing="7dp"
+        android:horizontalSpacing="10dp"
+        android:background="#ededed"
+        android:scrollbars="none"/>
+
+</LinearLayout>

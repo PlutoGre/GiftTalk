@@ -1,15 +1,20 @@
 package com.pluto.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pluto.bean.CategoryGiftInfo;
+import com.pluto.gifttalk.CategoryGiftDetailActivity;
+import com.pluto.gifttalk.CategoryStrategyDetailActivity;
 import com.pluto.gifttalk.R;
 
 import java.util.List;
@@ -27,6 +32,8 @@ public class CategoryGiftRightListViewAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
 
     private CategoryGiftRightGridViewAdapter rightGridViewAdapter;
+
+    private int groupPosition;
 
     public CategoryGiftRightListViewAdapter(Context context, List<CategoryGiftInfo.DataEntity.CategoriesEntity> categoriesEntityList) {
         this.context = context;
@@ -50,7 +57,7 @@ public class CategoryGiftRightListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView != null){
             holder = (ViewHolder) convertView.getTag();
@@ -59,7 +66,7 @@ public class CategoryGiftRightListViewAdapter extends BaseAdapter {
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }
-
+        groupPosition = position;
 //        if(position == 0 && categoriesEntityList.get(position).getName().equals("热门分类")){
 //            holder.mLinearLayout.setVisibility(View.GONE);
 //        }
@@ -67,6 +74,16 @@ public class CategoryGiftRightListViewAdapter extends BaseAdapter {
 
         rightGridViewAdapter = new CategoryGiftRightGridViewAdapter(context , categoriesEntityList.get(position).getSubcategories());
         holder.gvDetail.setAdapter(rightGridViewAdapter);
+
+        holder.gvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
+                Intent intent = new Intent(context, CategoryGiftDetailActivity.class);
+                intent.putExtra("id", categoriesEntityList.get(position).getSubcategories().get(position2).getId() + "");
+                intent.putExtra("name", categoriesEntityList.get(position).getSubcategories().get(position2).getName());
+                context.startActivity(intent);
+            }
+        });
 
         return convertView;
     }

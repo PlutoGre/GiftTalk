@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="match_parent"
+    android:id="@+id/fl">
 
     <TextView
         android:id="@+id/tv_category_gift_title_item_checked"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="45dp"
         android:text="热门分类"
         android:gravity="center"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/actionBarColor"
         android:visibility="gone"
         android:drawableLeft="@drawable/category_gift_listview_title_item_line"/>
@@ -17,8 +18,8 @@
     <TextView
         android:id="@+id/tv_category_gift_title_item_unchecked"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:text="热门分类"
         android:gravity="center"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 </FrameLayout>

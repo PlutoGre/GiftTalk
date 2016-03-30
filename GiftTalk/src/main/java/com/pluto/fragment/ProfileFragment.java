@@ -1,14 +1,20 @@
 package com.pluto.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.pluto.gifttalk.R;
+import com.pluto.zar.CaptureActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +39,9 @@ public class ProfileFragment extends BaseFragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
+
+    @Bind(R.id.ib_fg_profile_scan)
+    ImageButton ibScan;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,7 +74,16 @@ public class ProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this com.pluto.fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        ButterKnife.bind(this , view);
+        ibScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity() , CaptureActivity.class);
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -7,12 +7,21 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
 import com.pluto.adapter.HomeFragmentViewPagerAdapter;
+import com.pluto.adapter.PopupWindowGridViewAdapter;
 import com.pluto.bean.HomeTabProductInfo;
 import com.pluto.gifttalk.R;
 import com.pluto.http.IOkCallBack;
@@ -44,6 +53,9 @@ public class HomeFragment extends BaseFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private PopupWindow popupWindow;
+    private GridView mGridView;
+    private PopupWindowGridViewAdapter popupWindowGridViewAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,6 +71,13 @@ public class HomeFragment extends BaseFragment {
     private List<String> titleList = new ArrayList<>();
 
     private HomeFragmentViewPagerAdapter pagerAdapter;
+
+    @Bind(R.id.ib_fg_home)
+    ImageButton imageButtonDown;
+    @Bind(R.id.fl_popup_window_home)
+    FrameLayout frameLayout;
+    @Bind(R.id.ib_popup_window_home)
+    ImageButton imageButtonUp;
 
 
     /**
@@ -91,9 +110,59 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this com.pluto.fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
         //绑定黄油刀
         ButterKnife.bind(this, view);
+
+        imageButtonDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int height = mViewPager.getHeight();
+                View popView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_window_home, null);
+                popupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.MATCH_PARENT
+                        , height);
+
+                mGridView = (GridView) popView.findViewById(R.id.mgv_popup_window_home);
+                popupWindowGridViewAdapter = new PopupWindowGridViewAdapter(getActivity(), titleList);
+                mGridView.setAdapter(popupWindowGridViewAdapter);
+                mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        frameLayout.setVisibility(View.INVISIBLE);
+                        mTabLayout.setVisibility(View.VISIBLE);
+                        imageButtonDown.setVisibility(View.VISIBLE);
+                        popupWindow.dismiss();
+                        mViewPager.setCurrentItem(position);
+                    }
+                });
+
+                popupWindow.setContentView(popView);
+                popupWindow.setOutsideTouchable(true);
+
+                popupWindow.showAsDropDown(mTabLayout, 0, 0, Gravity.CENTER);
+                frameLayout.setVisibility(View.VISIBLE);
+                mTabLayout.setVisibility(View.INVISIBLE);
+                imageButtonDown.setVisibility(View.INVISIBLE);
+                popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.setFocusable(true);
+                        return false;
+                    }
+                });
+                popupWindow.setFocusable(false);
+            }
+        });
+
+        imageButtonUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frameLayout.setVisibility(View.INVISIBLE);
+                mTabLayout.setVisibility(View.VISIBLE);
+                imageButtonDown.setVisibility(View.VISIBLE);
+                popupWindow.dismiss();
+            }
+        });
 //        setUpViewPager();
         setUpTabLayout();
 //        HttpUtils.requestGet(TAB_URL,requestCallBack , 1);
@@ -114,6 +183,22 @@ public class HomeFragment extends BaseFragment {
             }
         } , 1);
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        frameLayout.setVisibility(View.INVISIBLE);
+        mTabLayout.setVisibility(View.VISIBLE);
+        imageButtonDown.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        frameLayout.setVisibility(View.INVISIBLE);
+        mTabLayout.setVisibility(View.VISIBLE);
+        imageButtonDown.setVisibility(View.VISIBLE);
     }
 
     private void setUpTabLayout() {

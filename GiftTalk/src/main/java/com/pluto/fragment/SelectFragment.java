@@ -1,17 +1,20 @@
 package com.pluto.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.pluto.adapter.SelectGridViewAdapter;
 import com.pluto.bean.SelectGridViewInfo;
 import com.pluto.gifttalk.R;
+import com.pluto.gifttalk.SelectDetailActivity;
 import com.pluto.http.IOkCallBack;
 import com.pluto.http.OkHttpTools;
 import com.pluto.http.UrlConfig;
@@ -81,7 +84,7 @@ public class SelectFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this com.pluto.fragment
         View view = inflater.inflate(R.layout.fragment_select, container, false);
@@ -99,6 +102,15 @@ public class SelectFragment extends BaseFragment {
                 gridViewAdapter.notifyDataSetChanged();
             }
         }, 1);
+
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity() , SelectDetailActivity.class);
+                intent.putExtra("id" , dataEntity1List.get(position).getData1().getId() + "");
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

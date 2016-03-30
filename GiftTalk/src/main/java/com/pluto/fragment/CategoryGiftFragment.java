@@ -1,23 +1,28 @@
 package com.pluto.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.pluto.adapter.CategoryGiftRightListViewAdapter;
 import com.pluto.adapter.CategoryGiftTitleListViewAdapter;
 import com.pluto.bean.CategoryGiftInfo;
 import com.pluto.gifttalk.R;
+import com.pluto.gifttalk.SelectGiftGodActivity;
 import com.pluto.http.IOkCallBack;
 import com.pluto.http.OkHttpTools;
 import com.pluto.http.UrlConfig;
@@ -52,12 +57,17 @@ public class CategoryGiftFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    @Bind(R.id.btn_category_gift)
-    Button btnGift;
     @Bind(R.id.lv_category_gift_title)
     ListView lvTitle;
     @Bind(R.id.lv_category_gift_detail)
     ListView lvDetail;
+
+    @Bind(R.id.btn_select_gift_god)
+    Button btnSelectGiftGod;
+
+    private int titlePosition = -1;
+    private int detailPosition = -1;
+
 
     private CategoryGiftTitleListViewAdapter titleListViewAdapter;
     private List<CategoryGiftInfo.DataEntity.CategoriesEntity> categoriesEntityList = new ArrayList<>();
@@ -110,6 +120,7 @@ public class CategoryGiftFragment extends BaseFragment {
                 rightListViewAdapter.notifyDataSetChanged();
             }
         }, 1);
+//        lvTitle.setItemChecked(0 , true);
 
         lvTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -117,25 +128,47 @@ public class CategoryGiftFragment extends BaseFragment {
 
                 Log.d("heyang", "onItemClick: -----------" + categoriesEntityList.size());
                 Log.d("heyang", "onItemClick: -----------" + position);
-//                for(int i = 0 ; i < categoriesEntityList.size()-1 ; i++){
-//                    View childAt1 = lvTitle.getChildAt(i);
-//                    childAt1.setBackgroundColor(Color.GRAY);
-//                    TextView tvUnChecked1 = (TextView) childAt1.findViewById(R.id.tv_category_gift_title_item_unchecked);
-//                    tvUnChecked1.setVisibility(View.GONE);
+//                lvTitle.setItemChecked(position , true);
+                titleListViewAdapter.setSelectPosition(position);
+                lvDetail.setSelection(position);
+                titleListViewAdapter.notifyDataSetChanged();
+//                if(position >= 1){
+//                    lvTitle.setSelection(position - 1);
+//                }else {
+//                    lvTitle.setSelection(position);
 //                }
+                lvTitle.smoothScrollToPositionFromTop(position , 150);
+//                titlePosition = position;
+            }
+        });
 
-                View childAt = lvTitle.getChildAt(position);
-                childAt.setBackgroundColor(Color.WHITE);
-                TextView tvChecked = (TextView) childAt.findViewById(R.id.tv_category_gift_title_item_checked);
-                tvChecked.setVisibility(View.VISIBLE);
-                TextView tvUnChecked = (TextView) childAt.findViewById(R.id.tv_category_gift_title_item_unchecked);
-                tvUnChecked.setVisibility(View.GONE);
+        lvDetail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int firstVisiblePosition = lvDetail.getFirstVisiblePosition();
+//                lvTitle.setSelectionFromTop(firstVisiblePosition, 40);
+                lvTitle.smoothScrollToPositionFromTop(firstVisiblePosition , 150);
+                titleListViewAdapter.setSelectPosition(firstVisiblePosition);
+                titleListViewAdapter.notifyDataSetChanged();
+                if(firstVisiblePosition >= 1){
+                    lvTitle.setSelection(firstVisiblePosition - 1);
+                }else {
+                    lvTitle.setSelection(firstVisiblePosition);
+                }
+                return false;
             }
         });
 
         rightListViewAdapter = new CategoryGiftRightListViewAdapter(getActivity() , categoriesEntityList);
         lvDetail.setAdapter(rightListViewAdapter);
 
+        btnSelectGiftGod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity() , SelectGiftGodActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

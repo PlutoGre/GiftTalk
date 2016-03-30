@@ -1,74 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.pluto.gifttalk.SelectDetailActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_select_detail"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/sv_select_detail"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"/>
-        <com.bigkoo.convenientbanner.ConvenientBanner
-            android:id="@+id/cb_select_detail"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.bigkoo.convenientbanner.ConvenientBanner
+                        android:id="@+id/cb_select_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:src="@drawable/select_detail_img"/>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_select_detail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_select_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/actionBarColor"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_select_detail_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#ededed" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#b3b3b3" />
+
+                <TextView
+                    android:id="@+id/tv_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/myLucency" />
+
+
+                <com.pluto.customview.CustomViewPager
+                    android:id="@+id/vp_select_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:background="@color/white"
             android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/tv_select_detail_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="北欧实木麋鹿小夜灯"
-                android:textSize="20sp"/>
-            <TextView
-                android:id="@+id/tv_select_detail_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="￥129.00"
-                android:textSize="18sp"
-                android:textColor="@color/actionBarColor"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"/>
-            <TextView
-                android:id="@+id/tv_select_detail_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="看到这款鹿灯，突然想到的是哈利波特被摄魂挂抓住时，看到爸爸的场景。好像就是这样一只鹿，像一束光，在不远的地方，不离开，带着你走出黑暗。"
-                android:textSize="12sp"/>
-
-        </LinearLayout>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#ededed" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="#b3b3b3" />
+            app:layout_anchor="@id/tv_radio_group"
+            app:layout_anchorGravity="center">
 
             <RadioGroup
                 android:id="@+id/rg_select_detail"
@@ -77,7 +105,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rb_select_detail_gift"
+                    android:id="@+id/rb_select_detail_introduce"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -93,7 +121,7 @@
                     android:background="#b3b3b3" />
 
                 <RadioButton
-                    android:id="@+id/rb_select_detail_strategy"
+                    android:id="@+id/rb_select_detail_comment"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -110,19 +138,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_select_detail_gift_line"
+                    android:id="@+id/tv_select_detail_introduce_line"
                     android:layout_width="0dp"
-                    android:layout_height="3dp"
+                    android:layout_height="2dp"
                     android:layout_weight="1"
                     android:background="@color/actionBarColor" />
 
                 <TextView
-                    android:id="@+id/tv_select_detail_strategy_line"
+                    android:id="@+id/tv_select_detail_comment_line"
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     android:layout_weight="1"
                     android:background="@color/actionBarColor"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <TextView
@@ -130,12 +158,37 @@
                 android:layout_height="0.1dp"
                 android:background="#b3b3b3" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_select_detail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_select_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/myLucency" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <ImageButton
+            android:id="@+id/ib_select_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_action_back" />
+
+        <ImageButton
+            android:id="@+id/ib_select_detail_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_menu_share" />
+
+    </FrameLayout>
+</FrameLayout>

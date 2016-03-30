@@ -1,6 +1,7 @@
 package com.pluto.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.pluto.adapter.CategoryFragmentPagerAdapter;
 import com.pluto.gifttalk.R;
+import com.pluto.gifttalk.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,9 @@ public class CategoryFragment extends BaseFragment {
     RadioGroup mRadioGroup;
     private List<Fragment> fragmentList = new ArrayList<>();
     private CategoryFragmentPagerAdapter pagerAdapter;
+
+    @Bind(R.id.ib_fg_category_search)
+    ImageButton ibSearch;
 
     /**
      * Use this factory method to create a new instance of
@@ -96,7 +102,7 @@ public class CategoryFragment extends BaseFragment {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.rb_fg_strategy:
                         mViewPager.setCurrentItem(0);
                         break;
@@ -114,12 +120,20 @@ public class CategoryFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                ((RadioButton)mRadioGroup.getChildAt(position)).setChecked(true);
+                ((RadioButton) mRadioGroup.getChildAt(position)).setChecked(true);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        ibSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
             }
         });
 

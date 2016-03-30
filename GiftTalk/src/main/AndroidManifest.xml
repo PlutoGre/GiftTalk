@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 使用相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- 闪光灯权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -12,7 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +26,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".WebActivity" />
-        <activity android:name=".SelectDetailActivity"></activity>
+        <activity android:name=".SelectDetailActivity" />
+        <activity android:name=".CategoryStrategyDetailActivity" />
+        <activity android:name=".CategoryGiftDetailActivity" />
+        <activity android:name=".SelectGiftGodActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.pluto.zar.CaptureActivity"/>
     </application>
 
 </manifest>

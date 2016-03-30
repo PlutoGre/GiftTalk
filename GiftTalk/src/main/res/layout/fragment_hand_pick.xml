@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.pluto.fragment.HandPickFragment">
 
-    <ExpandableListView
+    <com.handmark.pulltorefresh.library.PullToRefreshExpandableListView
         android:id="@+id/elv_fg_hand_pick"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

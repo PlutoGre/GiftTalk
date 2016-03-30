@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_select_detail_comment_lv_item_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:riv_corner_radius="40dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/me_avatar_boy"/>
+
+    <TextView
+        android:id="@+id/tv_select_detail_comment_lv_item_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/riv_select_detail_comment_lv_item_icon"
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:id="@+id/tv_select_detail_comment_lv_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/tv_select_detail_comment_lv_item_user"
+        android:textSize="10sp"/>
+    <TextView
+        android:id="@+id/tv_select_detail_comment_lv_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_alignLeft="@id/tv_select_detail_comment_lv_item_user"
+        android:layout_below="@id/tv_select_detail_comment_lv_item_user" />
+
+
+</RelativeLayout>

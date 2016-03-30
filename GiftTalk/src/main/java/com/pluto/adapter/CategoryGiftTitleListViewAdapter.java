@@ -1,6 +1,7 @@
 package com.pluto.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,12 @@ public class CategoryGiftTitleListViewAdapter extends BaseAdapter {
     private List<CategoryGiftInfo.DataEntity.CategoriesEntity> categoriesEntityList;
     private Context context;
     private LayoutInflater layoutInflater;
+
+    private int selectPosition;
+
+    public void setSelectPosition(int selectPosition) {
+        this.selectPosition = selectPosition;
+    }
 
     public CategoryGiftTitleListViewAdapter(Context context, List<CategoryGiftInfo.DataEntity.CategoriesEntity> categoriesEntityList) {
         this.context = context;
@@ -49,21 +56,30 @@ public class CategoryGiftTitleListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView != null){
+        if (convertView != null) {
             holder = (ViewHolder) convertView.getTag();
-        }else {
-            convertView = layoutInflater.inflate(R.layout.category_gift_listview_title_item , null);
+        } else {
+            convertView = layoutInflater.inflate(R.layout.category_gift_listview_title_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }
 
+        if (selectPosition == position) {
+            convertView.setBackgroundColor(Color.WHITE);
+            holder.tvChecked.setVisibility(View.VISIBLE);
+            holder.tvUnChecked.setVisibility(View.GONE);
+        }else {
+            convertView.setBackgroundColor(0xfff2f2f2);
+            holder.tvChecked.setVisibility(View.GONE);
+            holder.tvUnChecked.setVisibility(View.VISIBLE);
+        }
         holder.tvChecked.setText(categoriesEntityList.get(position).getName());
         holder.tvUnChecked.setText(categoriesEntityList.get(position).getName());
 
         return convertView;
     }
 
-    class ViewHolder{
+    class ViewHolder {
 
         @Bind(R.id.tv_category_gift_title_item_checked)
         TextView tvChecked;
@@ -71,7 +87,7 @@ public class CategoryGiftTitleListViewAdapter extends BaseAdapter {
         TextView tvUnChecked;
 
         public ViewHolder(View view) {
-            ButterKnife.bind(this ,view);
+            ButterKnife.bind(this, view);
         }
     }
 }

@@ -20,6 +20,34 @@
         android:layout_alignParentRight="true"
         android:background="#00ffffff" />
 
+    <FrameLayout
+        android:id="@+id/fl_popup_window_home"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换频道"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"/>
+        <ImageButton
+            android:id="@+id/ib_popup_window_home"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/arrow_index_up"
+            android:layout_gravity="right|center_vertical"
+            android:background="@color/myLucency"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="#c1c1c1"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_fg_home"
         android:layout_width="match_parent"

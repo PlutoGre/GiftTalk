@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.pluto.customview.MeasureGridView
+        android:id="@+id/mgv_popup_window_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="4"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="20dp"
+        android:padding="15dp"/>
+
+</LinearLayout>

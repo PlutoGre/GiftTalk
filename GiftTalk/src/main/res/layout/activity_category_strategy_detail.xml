@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/actionBarColor"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp">
+        <ImageButton
+            android:id="@+id/ib_category_strategy_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_action_back"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_category_strategy_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="美护"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:id="@+id/ib_ib_category_strategy_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_menu_sort"
+            android:layout_gravity="right|center_vertical"/>
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/lv_category_strategy_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#00ffffff"
+        android:background="#ededed"
+        android:scrollbars="none"/>
+
+</LinearLayout>

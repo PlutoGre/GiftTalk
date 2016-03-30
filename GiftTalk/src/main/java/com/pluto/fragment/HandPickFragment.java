@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +19,15 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
 import com.pluto.adapter.ExpandAdapter;
 import com.pluto.adapter.HandPickRecyclerViewAdapter;
 import com.pluto.bean.HandPickContentProductInfo;
 import com.pluto.bean.HandPickRecyclerViewInfo;
 import com.pluto.bean.HandPickViewPagerProductInfo;
+import com.pluto.gifttalk.CategoryStrategyDetailActivity;
 import com.pluto.gifttalk.R;
 import com.pluto.gifttalk.WebActivity;
 import com.pluto.http.IOkCallBack;
@@ -67,7 +72,8 @@ public class HandPickFragment extends BaseFragment {
     }
 
     @Bind(R.id.elv_fg_hand_pick)
-    ExpandableListView mExpandableListView;
+    PullToRefreshExpandableListView mRefreshExpandableListView;
+    private ExpandableListView mExpandableListView;
 
     private ExpandAdapter expandAdapter;
     private HeaderViewHolder headerViewHolder;
@@ -77,6 +83,7 @@ public class HandPickFragment extends BaseFragment {
     private Map<String, List<HandPickContentProductInfo.DataEntity.ItemsEntity>> itemsMap =
             new HashMap<>();
     private List<String> groupTitleList = new ArrayList<>();
+    private List<HandPickContentProductInfo.DataEntity.PagingEntity> pagingEntityList = new ArrayList<>();
 
     //横向的RecyclerView
     private HandPickRecyclerViewAdapter recyclerViewAdapter;
@@ -117,6 +124,8 @@ public class HandPickFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hand_pick, container, false);
         ButterKnife.bind(this, view);
+
+        mExpandableListView = mRefreshExpandableListView.getRefreshableView();
         //为ExpandListView添加头部
         setupHeaderView();
         OkHttpTools.newInstance().okGet(UrlConfig.HAND_PICK_VIEW_PAGER_URL, HandPickViewPagerProductInfo.class
@@ -142,20 +151,114 @@ public class HandPickFragment extends BaseFragment {
             }
         }, 1);
 
+
         setupExpandableListView();
         getHttpData();
 
         mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Intent intent = new Intent(getActivity() , WebActivity.class);
-                intent.putExtra("url" , itemsMap.get(groupTitleList.get(groupPosition)).get(childPosition).getContent_url());
-                intent.putExtra("image_url" , itemsMap.get(groupTitleList.get(groupPosition)).get(childPosition).getCover_webp_url() );
-                intent.putExtra("title" , itemsMap.get(groupTitleList.get(groupPosition)).get(childPosition).getTitle());
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("url", itemsMap.get(groupTitleList.get(groupPosition)).get(childPosition).getContent_url());
+                intent.putExtra("image_url", itemsMap.get(groupTitleList.get(groupPosition)).get(childPosition).getCover_webp_url());
+                intent.putExtra("title", itemsMap.get(groupTitleList.get(groupPosition)).get(childPosition).getTitle());
                 startActivity(intent);
                 return true;
             }
         });
+
+        mRefreshExpandableListView.setMode(PullToRefreshBase.Mode.BOTH);
+        mRefreshExpandableListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ExpandableListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ExpandableListView> refreshView) {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefreshExpandableListView.onRefreshComplete();
+                    }
+                } , 3000);
+
+                OkHttpTools.newInstance().okGet(UrlConfig.HAND_PICK_LIST_VIEW, HandPickContentProductInfo.class
+                        , new IOkCallBack<HandPickContentProductInfo>() {
+                    @Override
+                    public void onSuccess(HandPickContentProductInfo resultInfo, int requestCode) {
+                        List<HandPickContentProductInfo.DataEntity.ItemsEntity> itemsEntityList = resultInfo.getData().getItems();
+                        pagingEntityList.add(resultInfo.getData().getPaging());
+
+                        groupTitleList.clear();
+                        itemsMap.clear();
+
+                        for (int i = 0; i < itemsEntityList.size(); i++) {
+                            HandPickContentProductInfo.DataEntity.ItemsEntity itemsEntity = itemsEntityList.get(i);
+                            String key = DateFormatTool.formatDate(itemsEntity.getPublished_at() * 1000L);
+                            Log.d("heyang", "onSuccess: ------------>" + key);
+                            List<HandPickContentProductInfo.DataEntity.ItemsEntity> itemsEntities = itemsMap.get(key);
+
+                            if (itemsEntities != null) {
+                                itemsEntities.add(itemsEntity);
+                                Log.d("heyang", "onSuccess: ------------>" + itemsEntities.get(0).getCover_image_url());
+                            } else {
+                                groupTitleList.add(key);
+                                itemsEntities = new ArrayList<>();
+                                itemsEntities.add(itemsEntity);
+                                itemsMap.put(key, itemsEntities);
+                            }
+                        }
+                        Log.d("heyang", "onSuccess: ------------>" + groupTitleList.size());
+                        //注意：一定要展开Group，不然child无法显示出来
+                        for (int i = 0; i < groupTitleList.size(); i++) {
+                            mExpandableListView.expandGroup(i);
+                        }
+                        expandAdapter.notifyDataSetChanged();
+//                        mRefreshExpandableListView.onRefreshComplete();
+                    }
+                }, 3);
+//                mRefreshExpandableListView.onRefreshComplete();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ExpandableListView> refreshView) {
+                OkHttpTools.newInstance().okGet(pagingEntityList.get(pagingEntityList.size() - 1).getNext_url(), HandPickContentProductInfo.class
+                        , new IOkCallBack<HandPickContentProductInfo>() {
+
+                    @Override
+                    public void onSuccess(HandPickContentProductInfo resultInfo, int requestCode) {
+                        List<HandPickContentProductInfo.DataEntity.ItemsEntity> itemsEntityList = resultInfo.getData().getItems();
+                        pagingEntityList.add(resultInfo.getData().getPaging());
+
+                        for (int i = 0; i < itemsEntityList.size(); i++) {
+                            HandPickContentProductInfo.DataEntity.ItemsEntity itemsEntity = itemsEntityList.get(i);
+                            String key = DateFormatTool.formatDate(itemsEntity.getPublished_at() * 1000L);
+                            List<HandPickContentProductInfo.DataEntity.ItemsEntity> itemsEntities = itemsMap.get(key);
+
+                            if (itemsEntities != null) {
+                                itemsEntities.add(itemsEntity);
+                            } else {
+                                groupTitleList.add(key);
+                                itemsEntities = new ArrayList<>();
+                                itemsEntities.add(itemsEntity);
+                                itemsMap.put(key, itemsEntities);
+                            }
+                        }
+                        //注意：一定要展开Group，不然child无法显示出来
+                        for (int i = 0; i < groupTitleList.size(); i++) {
+                            mExpandableListView.expandGroup(i);
+                        }
+                        expandAdapter.notifyDataSetChanged();
+                        mRefreshExpandableListView.onRefreshComplete();
+                    }
+                }, 5);
+            }
+        });
+
+//        headerViewHolder.mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(getActivity() , CategoryStrategyDetailActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return view;
     }
@@ -169,6 +272,7 @@ public class HandPickFragment extends BaseFragment {
             @Override
             public void onSuccess(HandPickContentProductInfo resultInfo, int requestCode) {
                 List<HandPickContentProductInfo.DataEntity.ItemsEntity> itemsEntityList = resultInfo.getData().getItems();
+                pagingEntityList.add(resultInfo.getData().getPaging());
 
                 groupTitleList.clear();
                 itemsMap.clear();

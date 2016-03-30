@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pluto.gifttalk.CategoryGiftDetailActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/actionBarColor"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp">
+        <ImageButton
+            android:id="@+id/ib_category_gift_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_action_back"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_category_gift_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:id="@+id/ib_ib_category_gift_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myLucency"
+            android:src="@drawable/ic_menu_sort"
+            android:layout_gravity="right|center_vertical"/>
+    </FrameLayout>
+
+    <GridView
+        android:id="@+id/gv_category_gift_click_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:padding="10dp"
+        android:verticalSpacing="7dp"
+        android:horizontalSpacing="10dp"
+        android:background="#ededed"
+        android:scrollbars="none"/>
+
+</LinearLayout>

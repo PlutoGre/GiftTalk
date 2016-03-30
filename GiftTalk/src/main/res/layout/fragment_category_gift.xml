@@ -5,7 +5,7 @@
     tools:context="com.pluto.fragment.CategoryGiftFragment">
 
     <Button
-        android:id="@+id/btn_category_gift"
+        android:id="@+id/btn_select_gift_god"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="选礼神器"
@@ -26,10 +26,10 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:background="#8c8c8c"
-        android:layout_below="@id/btn_category_gift"/>
+        android:layout_below="@id/btn_select_gift_god"/>
     <ListView
         android:id="@+id/lv_category_gift_title"
-        android:layout_width="100dp"
+        android:layout_width="90dp"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_category_gift_line"
         android:scrollbars="none"

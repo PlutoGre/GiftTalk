@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.pluto.adapter.HomeOthersListViewAdapter;
 import com.pluto.bean.HomeOthersListVIewInfo;
 import com.pluto.gifttalk.MainActivity;
@@ -45,6 +47,7 @@ public class HomeOthersFragment extends BaseFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private String url;
 
     public HomeOthersFragment() {
         // Required empty public constructor
@@ -52,10 +55,12 @@ public class HomeOthersFragment extends BaseFragment {
 
     //其它界面的ListView
     @Bind(R.id.lv_fg_home_others)
+    PullToRefreshListView refreshListView;
     ListView mListView;
     private List<HomeOthersListVIewInfo.DataEntity.ItemsEntity> itemsEntityList = new ArrayList<>();
     private HomeOthersListViewAdapter listViewAdapter;
 
+    private List<HomeOthersListVIewInfo.DataEntity.PagingEntity> pagingEntityList = new ArrayList<>();
 
     /**
      * Use this factory method to create a new instance of
@@ -90,29 +95,64 @@ public class HomeOthersFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_others, container, false);
         ButterKnife.bind(this, view);
-        String url = UrlConfig.HOME_OTHERS_URL_1 + mParam1 + UrlConfig.HOME_OTHER_URL_2;
+
+        refreshListView.setMode(PullToRefreshBase.Mode.BOTH);
+
+        url = UrlConfig.HOME_OTHERS_URL_1 + mParam1 + UrlConfig.HOME_OTHER_URL_2;
         OkHttpTools.newInstance().okGet(url, HomeOthersListVIewInfo.class, new IOkCallBack<HomeOthersListVIewInfo>() {
             @Override
             public void onSuccess(HomeOthersListVIewInfo resultInfo, int requestCode) {
                 List<HomeOthersListVIewInfo.DataEntity.ItemsEntity> items = resultInfo.getData().getItems();
+                pagingEntityList.add(resultInfo.getData().getPaging());
                 itemsEntityList.addAll(items);
                 listViewAdapter.notifyDataSetChanged();
             }
         }, 1);
 
-        listViewAdapter = new HomeOthersListViewAdapter(getActivity() , itemsEntityList);
+        listViewAdapter = new HomeOthersListViewAdapter(getActivity(), itemsEntityList);
+        mListView = refreshListView.getRefreshableView();
         mListView.setAdapter(listViewAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("url" , itemsEntityList.get(position).getContent_url());
-                intent.putExtra("title" , itemsEntityList.get(position).getTitle());
-                intent.putExtra("image_url" , itemsEntityList.get(position).getCover_webp_url());
+                intent.putExtra("url", itemsEntityList.get(position).getContent_url());
+                intent.putExtra("title", itemsEntityList.get(position).getTitle());
+                intent.putExtra("image_url", itemsEntityList.get(position).getCover_webp_url());
                 startActivity(intent);
             }
         });
+
+        refreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                OkHttpTools.newInstance().okGet(url, HomeOthersListVIewInfo.class, new IOkCallBack<HomeOthersListVIewInfo>() {
+                    @Override
+                    public void onSuccess(HomeOthersListVIewInfo resultInfo, int requestCode) {
+                        List<HomeOthersListVIewInfo.DataEntity.ItemsEntity> items = resultInfo.getData().getItems();
+                        itemsEntityList.clear();
+                        itemsEntityList.addAll(items);
+                        listViewAdapter.notifyDataSetChanged();
+                        refreshListView.onRefreshComplete();
+                    }
+                }, 1);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                OkHttpTools.newInstance().okGet(pagingEntityList.get(pagingEntityList.size() - 1).getNext_url(), HomeOthersListVIewInfo.class, new IOkCallBack<HomeOthersListVIewInfo>() {
+                    @Override
+                    public void onSuccess(HomeOthersListVIewInfo resultInfo, int requestCode) {
+                        List<HomeOthersListVIewInfo.DataEntity.ItemsEntity> items = resultInfo.getData().getItems();
+                        itemsEntityList.addAll(items);
+                        listViewAdapter.notifyDataSetChanged();
+                        refreshListView.onRefreshComplete();
+                    }
+                }, 1);
+            }
+        });
+
         return view;
     }
 

@@ -137,7 +137,7 @@
         <TextView
             android:id="@+id/tv_fg_profile_gift_line"
             android:layout_width="0dp"
-            android:layout_height="3dp"
+            android:layout_height="2dp"
             android:layout_weight="1"
             android:background="@color/actionBarColor" />
 
