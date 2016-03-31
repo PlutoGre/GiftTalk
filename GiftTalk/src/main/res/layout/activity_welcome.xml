@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pluto.gifttalk.WelcomeActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="com.pluto.gifttalk.WelcomeActivity">
 
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/cb_welcome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:canLoop="false"/>
+        android:layout_height="match_parent"/>
 
     <ImageButton
         android:id="@+id/ib_welcome"
@@ -21,6 +19,6 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView
+        <com.pluto.customview.CustomScrollView
             android:id="@+id/sv_select_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,6 +19,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
                 <FrameLayout
@@ -29,10 +32,11 @@
                         android:id="@+id/cb_select_detail"
                         android:layout_width="match_parent"
                         android:layout_height="300dp" />
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:src="@drawable/select_detail_img"/>
+                        android:src="@drawable/select_detail_img" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -87,7 +91,7 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </com.pluto.customview.CustomScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

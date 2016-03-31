@@ -85,6 +85,7 @@ public class SearchActivity extends BaseActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fragmentList.clear();
                 try {
                     String searchContent = etSearchContent.getEditableText().toString();
                     if (searchContent.equals("")) {
@@ -96,13 +97,14 @@ public class SearchActivity extends BaseActivity {
 
                         llSearchContent.setVisibility(View.VISIBLE);
                         llSearchFlow.setVisibility(View.GONE);
-                        fragmentList.clear();
+
                         searchGiftFragment = SearchGiftFragment.newInstance(giftUrl, null);
                         searchStrategyFragment = SearchStrategyFragment.newInstance(strategyUrl, null);
                         fragmentList.add(searchGiftFragment);
                         fragmentList.add(searchStrategyFragment);
-                        fragmentPagerAdapter.notifyDataSetChanged();
-
+//                        fragmentPagerAdapter.notifyDataSetChanged();
+                        fragmentPagerAdapter = new CategoryFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+                        vpSearchContent.setAdapter(fragmentPagerAdapter);
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -153,8 +155,8 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        fragmentPagerAdapter = new CategoryFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
-        vpSearchContent.setAdapter(fragmentPagerAdapter);
+//        fragmentPagerAdapter = new CategoryFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+//        vpSearchContent.setAdapter(fragmentPagerAdapter);
         vpSearchContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -201,6 +203,7 @@ public class SearchActivity extends BaseActivity {
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            etSearchContent.setText(textView.getText());
                             String encode = null;
                             try {
                                 encode = URLEncoder.encode(textView.getText().toString(), "UTF-8");
@@ -217,7 +220,9 @@ public class SearchActivity extends BaseActivity {
                             searchStrategyFragment = SearchStrategyFragment.newInstance(strategyUrl, null);
                             fragmentList.add(searchGiftFragment);
                             fragmentList.add(searchStrategyFragment);
-                            fragmentPagerAdapter.notifyDataSetChanged();
+//                            fragmentPagerAdapter.notifyDataSetChanged();
+                            fragmentPagerAdapter = new CategoryFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+                            vpSearchContent.setAdapter(fragmentPagerAdapter);
                         }
                     });
                     flowLayout.addView(textView);

@@ -42,9 +42,6 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        if(groupTitleList != null) {
-            Log.d("heyang", "getGroupCount: --------------->" + groupTitleList.size());
-        }
         return groupTitleList == null ? 0 : groupTitleList.size();
     }
 
